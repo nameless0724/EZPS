@@ -1,5 +1,5 @@
-import { useState } from "react";
-import LogIn from "./login";
+import { useState } from 'react';
+import LogIn from './login';
 
 function LoginPage() {
     const [email, setEmail] = useState("");
@@ -13,7 +13,7 @@ function LoginPage() {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        alert("State and methods updating stae are sent as props");
+        alert("You are required to enter your email and password.");
     };
 
     return (
@@ -30,4 +30,4 @@ function LoginPage() {
     )
 }
 
-export default LoginPage
+export default LoginPage 

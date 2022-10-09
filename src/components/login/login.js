@@ -1,4 +1,4 @@
- function LogIn(props) {
+function LogIn(props) {
   return(
     <div>
       <form onSumbit={props.handleSumbit}>
@@ -6,7 +6,7 @@
         <input type="email" value={props.Email} placeholder="Email" onChange={props.handleEmail} /><br/>
         <label htmlFor="password">Password</label><br/>
         <input type="password" value={props.Password} placeholder="Password" onChange={props.handlePassword} /><br/>
-        <button>Submit</button>
+        <button>Log In</button>
       </form>
     </div>
   )

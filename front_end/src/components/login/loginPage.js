@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import LogIn from './login';
+import LogIn from './loginForm';
+
 
 function LoginPage() {
     const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ function LoginPage() {
         setPassword(event.target.value);
     };
     const handleSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault();     
         alert("You are required to enter your email and password.");
     };
 
@@ -30,4 +31,4 @@ function LoginPage() {
     )
 }
 
-export default LoginPage 
+export default LoginPage

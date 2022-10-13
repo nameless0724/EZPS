@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SignUp from './signUp';
+import SignUp from './signUpForm';
 
 function SignUpPage() {
     const [email, setEmail] = useState("");

@@ -99,47 +99,38 @@ app.post('/login', async (req, res) => {
 
 //provide the auth middleware
 app.get('/verify', auth, async (req, res) => {
-    try {
-        //return the user object
+    try{
         res.json(req.user)
     } catch (error) {
         console.error(err.message);
         res.status(500).send({
-            msg: "Unauthenticated"
+            msg: "Unautheticated"
         });
     }
 })
 
-//for profiling of user
-/*
+//for user profile
 app.post('/newprofile', async (req, res) => {
     try {
-        //take the email and password from the req.body
         const {
             user,
             sss,
+            philhealth,
+            pagibig,
+            tax
         } = req.body
+        
+        const profile = await pool.query(`SELECT * FROM public.profile WHERE user = $1`, [user])
 
-        //check if the user is already existing 
-        const user = await pool.query(`SELECT * FROM public.profile WHERE email = $1`, [email]) //$ for placement for array
-
-        if (user.rows.length > 0) {
-            res.status(401).send("User already exists!")
+        if (profile.rows.length > 0) {
+            res.status(401).send("Profile already exists!")
         }
 
-        //setup bcrypt for password hashing
-        const saltRound = 10;
-        const salt = await bcrypt.genSalt(saltRound);
-        const bcryptPassword = await bcrypt.hash(password, salt);
+        const newProfile = await pool.query(`
+        INSERT INTO public.profile (id, user, sss, philhealth, pagibig, tax) VALUE ($1, $2, $3, $4, $5, $6) RETURNING *
+        `, [uuidv4(), user, sss, philhealth, pagibig, tax])
 
-        //add the new user into the database
-        //generate the uuid using the uuidv4() function
-        const newUser = await pool.query(`
-        INSERT INTO public.user (id, email, password) VALUES ($1, $2, $3) RETURNING * 
-        `, [uuidv4(), email, bcryptPassword]) //table database
-
-        //generate and return the JWT token
-        const token = generateJwt(newUser.rows[0])
+        const token = generateJwt(newProfile.rows[0])
 
         res.json({
             token
@@ -148,4 +139,29 @@ app.post('/newprofile', async (req, res) => {
         console.log(error.message)
         res.status(500).send(error.message)
     }
-})*/
+})
+
+app.post('/profile', async (req, res) => {
+    try{
+        const {
+            user
+        } = req.body;
+
+        const profile = await pool.query(`SELECT * FROM public.profile WHERE user = $1`, [user])
+
+        console.log(profile.rows.length)
+        if (profile.rows.length == 0) {
+            res.status(401).send("Profile not found!")
+        }
+
+        const token = generateJwt(profile.rows[0])
+        res.json({
+            token
+        })
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send({
+            msg: "Unauthenticated"
+        })
+    }
+})

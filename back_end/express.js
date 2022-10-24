@@ -120,20 +120,14 @@ app.post('/newprofile', async (req, res) => {
             tax
         } = req.body
         
-        const profile = await pool.query(`SELECT * FROM public.profile WHERE user = $1`, [user])
-
-        if (profile.rows.length > 0) {
-            res.status(401).send("Profile already exists!")
-        }
-
-        const newProfile = await pool.query(`
-        INSERT INTO public.profile (id, user, sss, philhealth, pagibig, tax) VALUE ($1, $2, $3, $4, $5, $6) RETURNING *
+        pool.query(`
+        INSERT INTO public.profile (id, "user", sss, philhealth, pagibig, tax) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *
         `, [uuidv4(), user, sss, philhealth, pagibig, tax])
 
-        const token = generateJwt(newProfile.rows[0])
+        const message = "Profiling done successfully!"
 
         res.json({
-            token
+            message
         })
     } catch (error) {
         console.log(error.message)
@@ -141,23 +135,11 @@ app.post('/newprofile', async (req, res) => {
     }
 })
 
-app.post('/profile', async (req, res) => {
+app.get('/profile', async (req, res) => {
     try{
-        const {
-            user
-        } = req.body;
+        const profile = await pool.query(`SELECT * FROM public.profile ORDER BY id ASC`);
+        res.json(profile)
 
-        const profile = await pool.query(`SELECT * FROM public.profile WHERE user = $1`, [user])
-
-        console.log(profile.rows.length)
-        if (profile.rows.length == 0) {
-            res.status(401).send("Profile not found!")
-        }
-
-        const token = generateJwt(profile.rows[0])
-        res.json({
-            token
-        })
     } catch (error) {
         console.error(error.message);
         res.status(500).send({

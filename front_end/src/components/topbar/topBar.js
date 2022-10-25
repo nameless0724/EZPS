@@ -5,7 +5,8 @@ function TopBar() {
     return (
         <div className="topnav">
             <NavLink to="/login">Log In</NavLink>
-            <NavLink to="/signup">Sign Up</NavLink>
+            <NavLink to="/profile">User Profile</NavLink>
+            <NavLink to="/payslip">Payslip</NavLink>
         </div>
     )
 }

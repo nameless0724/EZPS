@@ -1,28 +1,16 @@
 import { useState } from 'react';
-import SignUp from './signUpForm';
+import Profile from './profileForm';
 
-function SignUpPage() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] =useState("");
-    const [user, setUser] =useState("");
-    const [id, setId] = useState("");
+function ProfilePage() {
+    const [user, setUser] = useState("");
     const [sss, setSss] = useState("");
     const [pagIbig, setPagIbig] = useState("");
     const [philhealth, setPhilhealth] = useState("");
     const [tax, setTax] = useState("");
 
-    const handleEmail = (event) => {
-        setEmail(event.target.value);
-    };
-    const handlePassword = (event) => {
-        setPassword(event.target.value);
-    };
     const handleUser = (event) => {
         setUser(event.target.value);
     };
-    const handleId = (event) => {
-        setId(event.target.value);
-    }
     const handleSss = (event) => {
         setSss(event.target.value);
     };
@@ -36,27 +24,21 @@ function SignUpPage() {
         setTax(event.target.value);
     };
     const handleSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault(); 
         alert("Please fill in all the details.");
     };
 
     return (
         <div>
-            <h1> Sign Up</h1>
-            <SignUp 
-                handleEmail={handleEmail}
-                handlePassword={handlePassword}
+            <h1>User Profile</h1>
+            <Profile 
                 handleUser={handleUser}
-                handleId={handleId}
                 handleSss={handleSss}
                 handlePagIbig={handlePagIbig}
                 handlePhilhealth={handlePhilhealth}
                 handleTax={handleTax}
                 handleSubmit={handleSubmit}
-                Email={email}
-                Password={password}
                 User={user}
-                Id={id}
                 Sss={sss}
                 Pagibig={pagIbig}
                 Philhealth={philhealth}
@@ -66,4 +48,4 @@ function SignUpPage() {
     )
 }
 
-export default SignUpPage
+export default ProfilePage

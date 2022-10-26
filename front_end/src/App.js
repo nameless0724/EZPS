@@ -1,7 +1,8 @@
 import TopBar from './components/topbar/topBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './components/login/loginPage';
-import SignUpPage from './components/signUp/signUpPage';
+import ProfilePage from './components/profile/profilePage';
+import PayslipPage from './components/payslip/payslipPage';
 
 function App() {
   return (
@@ -9,7 +10,8 @@ function App() {
       <TopBar />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/payslip" element={<PayslipPage />} />
       </Routes>
     </BrowserRouter>
   )

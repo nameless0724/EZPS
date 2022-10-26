@@ -136,10 +136,49 @@ app.post('/newprofile', async (req, res) => {
 })
 
 app.get('/profile', async (req, res) => {
-    try{
+    try {
         const profile = await pool.query(`SELECT * FROM public.profile ORDER BY id ASC`);
         res.json(profile)
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send({
+            msg: "Unauthenticated"
+        })
+    }
+})
 
+//for payslip form
+app.post('/entrypayslip', async (req, res) => {
+    try {
+        const {
+            user,
+            salary,
+            sss,
+            philhealth,
+            pagibig,
+            tax,
+            netpay
+        } = req.body
+
+        pool.query(`
+        INSERT INTO public.payslip (id, "user", salary, sss, philhealth, pagibig, tax, netpay) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *
+        `, [uuidv4(), user, salary, sss, philhealth, pagibig, tax, netpay])
+
+        const message = "Entry complete!"
+
+        res.json({
+            message
+        })
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).send(error.message)
+    }
+})
+
+app.get('/payslip', async (req, res) => {
+    try {
+        const payslip = await pool.query(`SELECT * FROM public.payslip ORDER BY id ASC`);
+        res.json(payslip)
     } catch (error) {
         console.error(error.message);
         res.status(500).send({

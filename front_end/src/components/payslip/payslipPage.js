@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LoginPage from '../login/loginPage';
 import Payslip from './payslipForm';
 
 function PayslipPage() {
@@ -38,6 +39,7 @@ function PayslipPage() {
 
     return (
         <div>
+            <br />
             <h1>Payslip</h1>
             <Payslip 
                 handleUser={handleUser}

@@ -5,11 +5,13 @@ import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid"; //universal unique identifier
 import { generateJwt } from "./jwtGenerator.js";
 import { auth } from "./auth.js";
+import cors from "cors"; //cross-origin resource sharing (CORS)
 
 const pool = connectDatabase()
 const app = express()
 const PORT = 8000
 
+app.use(cors());
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 

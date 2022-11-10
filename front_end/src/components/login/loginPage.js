@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import LogIn from './loginForm';
-import PayslipPage from '../payslip/payslipPage';
-
+import LogIn from './loginForm'
 
 function LoginPage() {
     let navigate = useNavigate();
@@ -51,8 +49,6 @@ function LoginPage() {
                 password={password}
             />
         </div>
-       
-
     )
 }
 

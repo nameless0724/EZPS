@@ -184,3 +184,27 @@ app.get('/payslip', async (req, res) => {
         })
     }
 }) 
+
+//attendance form
+app.post('/attendance', async (req, res) => {
+    try {
+        const {
+            user,
+            date,
+            hour
+        } = req.body
+
+        pool.query(`
+        INSERT INTO public.attendance (id, "user", date, hour) VALUES ($1, $2, $3, $4) RETURNING *
+        `, [uuidv4, user, date, hour])
+
+        const messsage = "Input successfull!"
+
+        res.json({
+            message
+        })
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).send(error.message)
+    }
+})

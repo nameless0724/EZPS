@@ -31,9 +31,9 @@ function PayslipPage() {
     }; 
     const handleNetpay = (event) => {
         setNetpay(event.target.value);
-    }
+    };
     const handleSubmit = (event) => {
-        event.prentDefault();
+        event.preventDefault();
         const config = {
             headers: {
                 'Content-Type': 'application/json'

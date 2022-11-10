@@ -5,10 +5,9 @@ function TopBar() {
     return (
         <div className="topnav">
             <NavLink to="/login">Log In</NavLink>
-            <NavLink to="/profile">User Profile</NavLink>
-            <NavLink to="/payslip">Payslip</NavLink>
+            <NavLink to="/signup">New User</NavLink>
         </div>
     )
 }
 
-export default TopBar
+export default TopBar 

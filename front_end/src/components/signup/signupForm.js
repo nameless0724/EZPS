@@ -1,33 +1,15 @@
-import React, { useState } from 'react';
-import SignUp from './signupPage';
-
-function SignupPage() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    const handleEmail = (event) => {
-        setEmail(event.target.value);
-    };
-    const handlePassword = (event) => {
-        setPassword(event.target.value);
-    };
-    const handleSubmit = (event) => {
-        event.preventDefault();     
-        alert("You are required to enter your email and password.");
-    };
-
-    return (
-        <div>
-            <h1>Sign Up</h1>
-            <SignUp
-                handleEmail={handleEmail}
-                handlePassword={handlePassword}
-                handleSubmit={handleSubmit}
-                Email={email}
-                Password={password}
-            /> 
-        </div>
+function SignUp(props) {
+    return(
+      <div>
+        <form onSubmit={props.handleSubmit}>
+          <label htmlFor="email">Email</label><br/>
+          <input type="email" value={props.email} placeholder="Email" onChange={props.handleEmail} /><br/>
+          <label htmlFor="password">Password</label><br/>
+          <input type="password" value={props.password} placeholder="Password" onChange={props.handlePassword} /><br/>
+          <button>Submit</button>
+        </form>
+      </div>
     )
-}
-
-export default SignupPage
+   }
+    
+   export default SignUp

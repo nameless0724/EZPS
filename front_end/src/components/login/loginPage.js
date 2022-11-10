@@ -1,48 +1,57 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import LogIn from './loginForm';
+import PayslipPage from '../payslip/payslipPage';
+
 
 function LoginPage() {
     let navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const handleEmail = (event) => {
+        setEmail(event.target.value);
+    }
+
+    const handlePassword = (event) => {
+        setPassword(event.target.value);
+    }
        
     const handleSubmit = (event) => {
         event.preventDefault();
-        navigate("/payslip");
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }     
- 
+        };     
+  
     axios.post("http://localhost:8000/login", {
         email: email,
         password: password
     }, config)
     .then((response) => {
         console.log(response)
+        navigate("/payslip");
     })
     .catch((error) => {
-        console.log(error);
-      })
+        console.log(error)
+        alert("Invalid email or password.");
+    })
     };
 
     return (
-       
         <div>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="email">Email</label><br/>
-              <input type="email" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} /><br/>
-              <label htmlFor="password">Password</label><br/>
-              <input type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} /><br/>
-              <button>Log In</button>
-            </form>
-            
-            <Link to="/signup">Not registered yet? Click here.</Link>
+            <h1>Log In</h1>
+            <LogIn 
+                handleEmail={handleEmail}
+                handlePassword={handlePassword}
+                handleSubmit={handleSubmit}
+                email={email}
+                password={password}
+            />
         </div>
-      
+       
 
     )
 }

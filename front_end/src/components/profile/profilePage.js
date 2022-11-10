@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import Profile from './profileForm';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function ProfilePage() {
+    let navigate = useNavigate;
     const [user, setUser] = useState("");
     const [sss, setSss] = useState("");
-    const [pagIbig, setPagIbig] = useState("");
+    const [pagibig, setPagIbig] = useState("");
     const [philhealth, setPhilhealth] = useState("");
     const [tax, setTax] = useState("");
 
@@ -21,11 +24,30 @@ function ProfilePage() {
         setPhilhealth(event.target.value);
     };
     const handleTax = (event) => {
-        setTax(event.target.value);
+        setTax(event.target.value); 
     };
     const handleSubmit = (event) => {
         event.preventDefault(); 
-        alert("Please fill in all the details.");
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+    
+    axios.post("http://localhost:8000/newprofile", {
+        user: user,
+        sss: sss,
+        pagibig: pagibig,
+        philhealth: philhealth, 
+        tax: tax,
+    }, config)
+    .then((response) => {
+        console.log(response)
+        navigate("/payslip");
+    })
+    .catch((error) => {
+        console.log(error)
+    }) 
     };
 
     return (
@@ -38,11 +60,11 @@ function ProfilePage() {
                 handlePhilhealth={handlePhilhealth}
                 handleTax={handleTax}
                 handleSubmit={handleSubmit}
-                User={user}
-                Sss={sss}
-                Pagibig={pagIbig}
-                Philhealth={philhealth}
-                Tax={tax}
+                user={user}
+                sss={sss}
+                pagibig={pagibig}
+                philhealth={philhealth}
+                tax={tax}
             />
         </div>
     )

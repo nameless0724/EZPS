@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import Payslip from './payslipForm';
 
 function PayslipPage() {
     const [user, setUser] = useState("");
     const [salary, setSalary] = useState("");
     const [sss, setSss] = useState("");
-    const [pagIbig, setPagIbig] = useState("");
+    const [pagibig, setPagIbig] = useState("");
     const [philhealth, setPhilhealth] = useState("");
     const [tax, setTax] = useState("");
     const [netpay, setNetpay] = useState("");
@@ -27,20 +28,41 @@ function PayslipPage() {
     };
     const handleTax =(event) => {
         setTax(event.target.value);
-    };
+    }; 
     const handleNetpay = (event) => {
         setNetpay(event.target.value);
-    }
+    };
     const handleSubmit = (event) => {
-        event.prentDefault();
-        alert("This area is required.");
+        event.preventDefault();
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+    
+    axios.post("http://localhost:8000/payslip", {
+        user: user,
+        salary: salary,
+        sss: sss,
+        pagibig: pagibig,
+        philhealth: philhealth,
+        tax: tax,
+        netpay: netpay
+    }, config)
+    .then((response) => {
+        console.log(response)
+    })
+    .catch((error) => {
+        console.log(error)
+    }) 
     };
 
     return (
         <div>
+            <br />
             <h1>Payslip</h1>
             <Payslip 
-                handleUser={handleUser}
+                handleUser={handleUser} 
                 handleSalary={handleSalary}
                 handleSss={handleSss}
                 handlePagIbig={handlePagIbig}
@@ -48,14 +70,15 @@ function PayslipPage() {
                 handleTax={handleTax}
                 handleNetpay={handleNetpay}
                 handleSubmit={handleSubmit}
-                User={user}
-                Salary={salary}
-                Sss={sss}
-                Pagibig={pagIbig}
-                Philhealth={philhealth}
-                Tax={tax}
-                Netpay={netpay}
-            />
+                user={user}
+                salary={salary}
+                sss={sss}
+                pagibig={pagibig}
+                philhealth={philhealth}
+                tax={tax}
+                netpay={netpay}
+            />  
+
         </div>
     )
 }

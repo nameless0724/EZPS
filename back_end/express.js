@@ -112,19 +112,28 @@ app.get('/verify', auth, async (req, res) => {
 })
 
 //for user profile
-app.post('/newprofile', async (req, res) => {
+app.post('/profile', async (req, res) => {
     try {
         const {
-            user,
-            sss,
-            philhealth,
-            pagibig,
-            tax
+            full_name,
+            salary_amount,
+            allowance_amount,
+            bonus_amount,
+            sss_num,
+            sss_contribution,
+            pagibig_num,
+            pagibig_contribution,
+            philhealth_num,
+            philhealth_contribution,
+            tax_num,
+            tax_contribution,
+            email
         } = req.body
         
         pool.query(`
-        INSERT INTO public.profile (id, "user", sss, philhealth, pagibig, tax) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *
-        `, [uuidv4(), user, sss, philhealth, pagibig, tax])
+        INSERT INTO public.profile (id, full_name, salary_amount, allowance_amount, bonus_amount, sss_num, sss_contribution, pagibig_num, pagibig_contribution, philhealth_num, philhealth_contribution, tax_num, tax_contribution, email) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *
+        `, [uuidv4(), full_name, salary_amount, allowance_amount, bonus_amount, sss_num, sss_contribution, pagibig_num, pagibig_contribution, philhealth_num, philhealth_contribution, tax_num, tax_contribution, email])
 
         const message = "Profiling done successfully!"
 

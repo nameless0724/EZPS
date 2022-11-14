@@ -78,6 +78,7 @@ function PayslipPage() {
                 tax={tax}
                 netpay={netpay}
             />  
+
         </div>
     )
 }

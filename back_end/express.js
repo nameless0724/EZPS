@@ -40,10 +40,10 @@ app.post('/signup', async (req, res) => {
         if (user.rows.length > 0) {
             res.status(401).send("User already exists!")
         }
-
+ 
         //setup bcrypt for password hashing
         const saltRound = 10;
-        const salt = await bcrypt.genSalt(saltRound);
+        const salt = await bcrypt.genSalt(saltRound); 
         const bcryptPassword = await bcrypt.hash(password, salt);
 
         //add the new user into the database
@@ -180,7 +180,7 @@ app.post('/payslip', async (req, res) => {
         console.log(error.message)
         res.status(500).send(error.message)
     }
-})
+}) 
 
 app.get('/payslip', async (req, res) => {
     try {

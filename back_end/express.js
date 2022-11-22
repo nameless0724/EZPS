@@ -146,7 +146,7 @@ app.post('/profile', async (req, res) => {
     }
 })
 
-app.get('/profile', async (req, res) => {
+app.get('/profilelist', async (req, res) => {
     try {
         const profile = await pool.query(`SELECT * FROM public.profile ORDER BY id ASC`);
         res.json(profile)

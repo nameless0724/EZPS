@@ -28,7 +28,7 @@ function SignupPage() {
     }, config)
     .then((response) => {
         console.log(response)
-        navigate("/newprofile")
+        navigate("/profile")
     })
     .catch((error) => {
         console.log(error)

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Profile from './profileForm';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ProfileTable from './profileTable';
+
 
 function ProfilePage() {
     let navigate = useNavigate;
@@ -96,7 +98,7 @@ function ProfilePage() {
     }, config)
     .then((response) => {
         console.log(response)
-        navigate("/payslip");
+        navigate(<ProfileTable />);
     })
     .catch((error) => {
         console.log(error)
@@ -137,6 +139,6 @@ function ProfilePage() {
             />
         </div>
     )
-}
+} 
 
 export default ProfilePage

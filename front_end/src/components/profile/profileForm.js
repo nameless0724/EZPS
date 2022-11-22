@@ -28,7 +28,7 @@ function Profile(props) {
                 <input type="tax_contribution" value={props.tax_contribution} placeholder="Tax Contribution" onChange={props.handleTax_contribution} /><br/>
                 <label htmlFor="email">Email</label><br/>
                 <input type="email" value={props.email} placeholder="Email" onChange={props.handleEmail} /><br/>
-                <button>submit</button>
+                <button>Submit</button>
             </form>
         </div>
     )

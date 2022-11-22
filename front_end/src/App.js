@@ -4,7 +4,7 @@ import LoginPage from './components/login/loginPage';
 import SignupPage from './components/signup/signupPage';
 import PayslipPage from './components/payslip/payslipPage';
 import ProfilePage from './components/profile/profilePage';
-import AttendancePage from './components/attendance/attendancePage';
+import ProfileTable from './components/profile/profileTable';
 
 function App() {
   return (
@@ -14,8 +14,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/payslip" element={<PayslipPage />} />
-        <Route path="/newprofile" element={<ProfilePage />} />
-        <Route path="/attendance" element={<AttendancePage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profilelist" element={<ProfileTable />} />
       </Routes>
     </BrowserRouter>
   ) 

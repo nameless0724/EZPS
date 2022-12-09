@@ -3,7 +3,7 @@ function connectDatabase(){
     const pool = new pg.Pool({
         user : 'postgres',
         password : '24-J1u9l8y9',
-        database : 'ezps_website',
+        database : 'ezps_webapp',
         host : 'localhost'
     })
         return pool

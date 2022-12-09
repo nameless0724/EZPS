@@ -2,8 +2,10 @@ function SignUp(props) {
     return(
       <div>
         <form onSubmit={props.handleSubmit}>
-          <label htmlFor="email">Email</label><br/>
-          <input type="email" value={props.email} placeholder="Email" onChange={props.handleEmail} /><br/>
+          <label htmlFor="employee_id">Employee ID</label><br/>
+          <input type="employee_id" value={props.employee_id} placeholder="Employee ID" onChange={props.handleEmployee_id} /><br/>
+          <label htmlFor="user_name">User Name</label><br/>
+          <input type="user_name" value={props.user_name} placeholder="User Name" onChange={props.handleEmployee_id} /><br/>
           <label htmlFor="password">Password</label><br/>
           <input type="password" value={props.password} placeholder="Password" onChange={props.handlePassword} /><br/>
           <button>Submit</button>

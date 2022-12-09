@@ -5,13 +5,18 @@ import LogIn from './loginForm'
 
 function LoginPage() {
     let navigate = useNavigate();
-    const [email, setEmail] = useState("");
+    const [employee_id, setEmployee_id] = useState("");
+    const [user_name, setUser_name] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleEmail = (event) => {
-        setEmail(event.target.value);
+    const handleEmployee_id = (event) => {
+        setEmployee_id(event.target.value);
     }
 
+    const handleUser_name = (event) => {
+        setUser_name(event.target.value);
+    }
+ 
     const handlePassword = (event) => {
         setPassword(event.target.value);
     }
@@ -25,7 +30,8 @@ function LoginPage() {
         };     
   
     axios.post("http://localhost:8000/login", {
-        email: email,
+        employee_id: employee_id,
+        user_name: user_name,
         password: password
     }, config)
     .then((response) => {
@@ -34,7 +40,7 @@ function LoginPage() {
     })
     .catch((error) => {
         console.log(error)
-        alert("Invalid email or password.");
+        alert("Invalid input.");
     })
     };
 
@@ -42,10 +48,12 @@ function LoginPage() {
         <div>
             <h1>Log In</h1>
             <LogIn 
-                handleEmail={handleEmail}
+                handleEmployee_id={handleEmployee_id}
+                handleUser_name={handleUser_name}
                 handlePassword={handlePassword}
                 handleSubmit={handleSubmit}
-                email={email}
+                employee_id={employee_id}
+                user_name={user_name}
                 password={password}
             />
         </div>

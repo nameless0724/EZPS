@@ -5,12 +5,18 @@ import { useNavigate } from 'react-router-dom';
 
 function SignupPage() {
     let navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [employee_id, setEmployee_id] = useState("");
+    const [user_name, setUser_name] = useState("");
+    const [password, setPassword] = useState("");    
 
-    const handleEmail = (event) => {
-        setEmail(event.target.value);
+    const handleEmployee_id = (event) => {
+        setEmployee_id(event.target.value);
     };
+
+    const handleUser_name = (event) => {
+        setUser_name(event.target.value);
+    };
+
     const handlePassword = (event) => {
         setPassword(event.target.value);
     };
@@ -20,19 +26,20 @@ function SignupPage() {
             headers: {
                 'Content-Type': 'application/json'
             }
-        };     
+        };      
  
     axios.post("http://localhost:8000/signup", {
-        email: email,
+        empoyee_id: employee_id,
+        user_name: user_name,
         password: password
     }, config)
     .then((response) => {
         console.log(response)
-        navigate("/newprofile")
+        navigate("/") 
     })
     .catch((error) => {
         console.log(error)
-        alert("Invalid email or password.");
+        alert("Invalid input.");
     })
     }; 
 
@@ -40,14 +47,16 @@ function SignupPage() {
         <div>
             <h1>Sign Up</h1>
             <SignUp
-                handleEmail={handleEmail}
+                handleEmployee_id={handleEmployee_id}
+                handleUser_name={handleUser_name}
                 handlePassword={handlePassword}
                 handleSubmit={handleSubmit}
-                email={email}
+                employee_id={employee_id}
+                user_name={user_name}
                 password={password}
             /> 
         </div>
     ) 
 }
 
-export default SignupPage
+export default SignupPage 

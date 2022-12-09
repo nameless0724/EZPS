@@ -3,19 +3,32 @@ import axios from 'axios';
 import Attendance from './attendanceForm';
 
 function AttendancePage() {
-    const [user, setUser] = useState("");
-    const [date, setDate] = useState("")
+    const [last_name, setLast_name] = useState("");
+    const [first_name, setFirst_name] = useState("");
+    const [middle_name, setMiddle_name] = useState("");
+    const [date, setDate] = useState("");
     const [hour, setHour] = useState("");
 
-    const handleUser = (event) => {
-        setUser(event.target.value);
+    const handleLast_name = (event) => {
+        setLast_name(event.target.value);
     };
+    
+    const handleFirst_name = (event) => {
+        setFirst_name(event.target.value);
+    }
+
+    const handleMiddle_name = (event) => {
+        setMiddle_name(event.target.value);
+    }
+
     const handleDate = (event) => {
         setDate(event.target.value);
-    };
+    }
+
     const handleHour = (event) => {
         setHour(event.target.value);
-    };
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const config = {
@@ -25,7 +38,9 @@ function AttendancePage() {
         };
     
     axios.post("http://localhost:8000/attendance", {
-        user: user,
+        last_name: last_name,
+        first_name: first_name,
+        middle_name: middle_name,
         date: date,
         hour: hour
     }, config)
@@ -41,16 +56,20 @@ function AttendancePage() {
         <div>
             <h1>Attendance Monitoring</h1>
             <Attendance 
-                handleUser={handleUser}
+                handleLast_name={handleLast_name}
+                handleFirst_name={handleFirst_name}
+                handleMiddle_name={handleMiddle_name}
                 handleDate={handleDate}
                 handleHour={handleHour}
                 handleSubmit={handleSubmit}
-                user={user}
+                last_name={last_name}
+                first_name={first_name}
+                middle_name={middle_name}
                 date={date}
                 hour={hour}
-            />
+            /> 
         </div>
     )
 }
 
-export default AttendancePage
+export default AttendancePage 

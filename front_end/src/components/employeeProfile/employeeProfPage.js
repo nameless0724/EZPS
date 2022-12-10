@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import EmployeeProfile from './employeeProfForm';
 
-function SignupPage() {
+function EmployeeProfilePage() {
     let navigate = useNavigate();
     const [employee_id, setEmployee_id] = useState("");
     const [last_name, setLast_name] = useState("");
@@ -16,7 +17,7 @@ function SignupPage() {
 
     const handleEmployee_id = (event) => {
         setEmployee_id(event.target.value);
-    };
+    }; 
 
     const handleLast_name = (event) => {
         setLast_name(event.target.value);
@@ -81,8 +82,8 @@ function SignupPage() {
 
     return (
         <div>
-            <h1>Sign Up</h1>
-            <SignUp
+            <h1>Employee Profile</h1>
+            <EmployeeProfile
                 handleEmployee_id={handleEmployee_id}
                 handleLast_name={handleLast_name}
                 handleFirst_name={handleFirst_name}
@@ -96,10 +97,15 @@ function SignupPage() {
                 employee_id={employee_id}
                 last_name={last_name}
                 first_name={first_name}
-                
+                middle_name={middle_name}
+                date_hired={date_hired}
+                sss_num={sss_num}
+                pagibig_num={pagibig_num}
+                philhealth_num={philhealth_num}
+                tax_num={tax_num}
             /> 
         </div>
     ) 
 }
 
-export default SignupPage 
+export default EmployeeProfilePage

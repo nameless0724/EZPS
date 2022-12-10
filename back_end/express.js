@@ -150,7 +150,7 @@ app.get('/payrollperiod', async (req, res) => {
     }
 })
 
-//for payslip
+//for payslip_main
 app.post('/payslip', async (req, res) => {
     try {
         const {
@@ -227,7 +227,7 @@ app.get('/attendance', async (req, res) => {
 })
 
 //for employee_salary
-app.post('/employeestatus', async (req, res) => {
+app.post('/employeesalary', async (req, res) => {
     try {
         const {
             employee_id,
@@ -253,7 +253,7 @@ app.post('/employeestatus', async (req, res) => {
     }
 })
 
-app.get('/employeestatus', async (req, res) => {
+app.get('/employeesalary', async (req, res) => {
     try {
         const status = await pool.query(`SELECT * FROM public.employee_salary ORDER BY id ASC`);
         res.json(status)

@@ -1,0 +1,111 @@
+.signup_frm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #141414;
+}
+
+.form {
+    background-color: #141414;
+    width: 400px;
+    border-radius: 8px;
+    padding: 20px 40px;
+    box-shadow: inset 0 10px 25px rgba(251, 253, 255, 0.838);
+    border-color: #49FF00;
+}
+
+.title {
+    font-size: 50px;
+    margin-bottom: 50px;
+    background-color: #7DCE13;
+    background-image: linear-gradient(to top, #49FF00 0, #FBFF00 100%);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    text-align: right;
+    padding-right: 20px;
+    padding-bottom: 50px;
+}
+
+.input_container {
+    position: relative;
+    height: 45px;
+    width: 90%;
+    margin-bottom: 17px;
+    padding-bottom: auto;
+}
+
+.input {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    border: 1px solid #49FF00;
+    border-radius: 7px;
+    font-size: 16px;
+    padding: 0 20px;
+    outline: none;
+    background: none;
+    z-index: 1;
+    color: #fff;
+}
+
+/*to hide placeholder text*/
+::placeholder {
+    color: transparent;
+}
+
+/*styling text labels for sign up form*/
+.label {
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    padding: 0 4px;
+    background-color: #141414;
+    color: #DADCE0;
+    font-size: 16px;
+    transition: 0.5s;
+    z-index: 0;
+}
+
+.submit_btn {
+    display: block;
+    margin-left: auto;
+    padding: 15px 30px;
+    border: none;
+    background-color: #49FF00;
+    color: #141414;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.submit_btn:hover {
+    background-color: #0E49B5;
+    transform: translateY(-2px);
+}
+
+.input:focus + .label {
+    top: -7px;
+    left: 3px;
+    z-index: 10;
+    font-size: 14px;
+    font-weight: 600;
+    color: #FBFF00;
+  }
+
+  .input:not(:placeholder-shown)+ .label {
+    top: -7px;
+    left: 3px;
+    z-index: 10;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .input:focus {
+    border: 2px solid #FBFF00;
+  }

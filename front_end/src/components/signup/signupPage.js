@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SignUp from './signupForm';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import "./signup.css";
 
 function SignupPage() {
     let navigate = useNavigate();
@@ -44,8 +45,10 @@ function SignupPage() {
     }; 
 
     return (
-        <div>
-            <h1>Sign Up</h1>
+        <div className="signup_frm">
+            <h1 className="title">
+                Sign<br />Up
+            </h1>
             <SignUp
                 handleEmployee_id={handleEmployee_id}
                 handleUser_name={handleUser_name}

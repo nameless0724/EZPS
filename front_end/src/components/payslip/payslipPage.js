@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Payslip from './payslipForm';
+import SidenavNew from '../sidenav/sidenavnew';
 
 function PayslipPage() {
     let navigate = useNavigate();
@@ -35,7 +36,7 @@ function PayslipPage() {
         };      
  
     axios.post("http://localhost:8000/payslip", {
-        empoyee_id: employee_id,
+        employee_id: employee_id,
         pay_run_date:pay_run_date,
         gross_income: gross_income,
         net_amount: net_amount
@@ -51,8 +52,9 @@ function PayslipPage() {
     }; 
 
     return (
-        <div>
-            <h1>Payslip</h1>
+        <div className="bg-gray-700">
+            <SidenavNew />
+            <h1 className="content-start text-5xl text-center font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-lime-400 to-green-500">PAYSLIP</h1><br />
             <Payslip
                 handleEmployee_id={handleEmployee_id}
                 handlePay_run_date={handlePay_run_date}

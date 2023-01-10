@@ -50,8 +50,8 @@ app.post('/signup', async (req, res) => {
         //add the new user into the database
         //generate the uuid using the uuidv4() function
         const newUser = await pool.query(`
-        INSERT INTO public.entry (employee_id, user_name, password) VALUES ($1, $2, $3) RETURNING * 
-        `, [employee_id, user_name, bcryptPassword]) //table database
+        INSERT INTO public.entry (id, employee_id, user_name, password) VALUES ($1, $2, $3, $4) RETURNING * 
+        `, [uuidv4(), employee_id, user_name, bcryptPassword]) //table database
 
         //generate and return the JWT token
         const token = generateJwt(newUser.rows[0])
@@ -124,7 +124,7 @@ app.post('/payrollperiod', async (req, res) => {
         
         pool.query(`
         INSERT INTO public.payroll_period (id, employee_id, period_start, period_end) 
-        VALUES ($1, $2, $3) RETURNING *
+        VALUES ($1, $2, $3, $4) RETURNING *
         `, [uuidv4(), employee_id, period_start, period_end])
 
         const message = "Input done!"
@@ -279,7 +279,7 @@ app.post('/employee', async (req, res) => {
             philhealth_num,
             tax_num
         } = req.body
-        
+         
         pool.query(`
         INSERT INTO public.employee_profile (id, employee_id, last_name, first_name, middle_name, date_hired, sss_num, pagibig_num, philhealth_num, tax_num) 
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *

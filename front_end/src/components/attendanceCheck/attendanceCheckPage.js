@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import AttendanceChecking from './attendanceCheckingForm';
+import SidenavNew from '../sidenav/sidenavnew';
 
 function AttendanceCheckingPage() {
     let navigate = useNavigate();
+   
     const [employee_id, setEmployee_id] = useState("");
     const [hours_rendered, setHours_rendered] = useState("");
     const [period_start, setPeriod_start] = useState("");
@@ -35,7 +37,7 @@ function AttendanceCheckingPage() {
         };      
  
     axios.post("http://localhost:8000/attendance", {
-        empoyee_id: employee_id,
+        employee_id: employee_id,
         hours_rendered: hours_rendered,
         period_start: period_start,
         period_end: period_end
@@ -45,14 +47,15 @@ function AttendanceCheckingPage() {
         navigate("")
     })
     .catch((error) => {
-        console.log(error)
+        console.log(error.response.data)
         alert("Invalid input.");
     })
     }; 
 
     return (
-        <div>
-            <h1>Employee Attendance</h1>
+        <div className="bg-gray-700">
+            <SidenavNew />
+            <h1 className="content-start text-5xl text-center font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-lime-400 to-green-500">EMPLOYEE ATTENDANCE</h1><br />
             <AttendanceChecking
                 handleEmployee_id={handleEmployee_id}
                 handleHours_rendered={handleHours_rendered}
@@ -60,7 +63,9 @@ function AttendanceCheckingPage() {
                 handlePeriod_end={handlePeriod_end}
                 handleSubmit={handleSubmit}
                 employee_id={employee_id}
-                
+                hours_rendered={hours_rendered}
+                period_start={period_start}
+                period_end={period_end}
             /> 
         </div>
     ) 

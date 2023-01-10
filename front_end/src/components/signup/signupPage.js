@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SignUp from './signupForm';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import "./signup.css";
+
 
 function SignupPage() {
     let navigate = useNavigate();
@@ -20,7 +20,7 @@ function SignupPage() {
 
     const handlePassword = (event) => {
         setPassword(event.target.value);
-    };
+    }; 
     const handleSubmit = (event) => {
         event.preventDefault();     
         const config = {
@@ -29,35 +29,36 @@ function SignupPage() {
             }
         };      
  
-    axios.post("http://localhost:8000/signup", {
-        empoyee_id: employee_id,
+    axios.post("http://localhost:8000/signup", { 
+        employee_id: employee_id,
         user_name: user_name,
         password: password
     }, config)
     .then((response) => {
         console.log(response)
-        navigate("/") 
+        navigate("/new") 
     })
     .catch((error) => {
-        console.log(error)
+        console.log(error.response.data)
         alert("Invalid input.");
     })
     }; 
-
+ 
     return (
-        <div className="signup_frm">
-            <h1 className="title">
-                Sign<br />Up
-            </h1>
-            <SignUp
-                handleEmployee_id={handleEmployee_id}
-                handleUser_name={handleUser_name}
-                handlePassword={handlePassword}
-                handleSubmit={handleSubmit}
-                employee_id={employee_id}
-                user_name={user_name}
-                password={password}
-            /> 
+        <div className="bg-gray-700">
+            <div>
+                <h1 className="content-start text-5xl text-center font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-lime-400 to-green-500">SIGN UP</h1>
+                <br />
+                <SignUp
+                    handleEmployee_id={handleEmployee_id}
+                    handleUser_name={handleUser_name}
+                    handlePassword={handlePassword}
+                    handleSubmit={handleSubmit}
+                    employee_id={employee_id}
+                    user_name={user_name}
+                    password={password}
+                /> 
+            </div>
         </div>
     ) 
 }

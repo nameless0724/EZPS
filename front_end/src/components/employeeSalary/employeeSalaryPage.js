@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import EmployeeSalary from './employeeSalaryForm';
+import SidenavNew from '../sidenav/sidenavnew';
 
 function EmployeeSalaryPage() {
     let navigate = useNavigate();
@@ -40,7 +41,7 @@ function EmployeeSalaryPage() {
         };      
  
     axios.post("http://localhost:8000/employeesalary", {
-        empoyee_id: employee_id,
+        employee_id: employee_id,
         salary: salary,
         position: position,
         status: status,
@@ -57,8 +58,9 @@ function EmployeeSalaryPage() {
     }; 
 
     return (
-        <div>
-            <h1>Employee Salary Information</h1>
+        <div className="bg-gray-700">
+            <SidenavNew />
+            <h1 className="content-start text-5xl text-center font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-lime-400 to-green-500">EMPLOYEE SALARY INFORMATION</h1><br />
             <EmployeeSalary
                 handleEmployee_id={handleEmployee_id}
                 handleSalary={handleSalary}

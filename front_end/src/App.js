@@ -8,6 +8,7 @@ import HomePage from './components/homepage/homepage';
 import LoginPage from './components/login/loginPage';
 import PayrollPeriodPage from './components/payrollPeriod/payrollPeriodPage';
 import PayslipPage from './components/payslip/payslipPage';
+import SidenavNew from './components/sidenav/sidenavnew';
 import SignupPage from './components/signup/signupPage';
 
 function App() {
@@ -24,8 +25,9 @@ function App() {
         <Route path="/payslip" element={<PayslipPage />} />
         <Route path="/deduction" element={<DeductionPage />} />
         <Route path="/allowance" element={<AllowancePage />} />
+        <Route path="/new" element={<SidenavNew />} />
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter> 
   ) 
 }
 

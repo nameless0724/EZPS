@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Allowance from './allowanceForm';
+import SidenavNew from '../sidenav/sidenavnew';
 
 function AllowancePage() {
     let navigate = useNavigate();
@@ -45,7 +46,7 @@ function AllowancePage() {
         };      
  
     axios.post("http://localhost:8000/allowance", {
-        empoyee_id: employee_id,
+        employee_id: employee_id,
         rice: rice,
         medical: medical,
         clothing: clothing,
@@ -57,14 +58,15 @@ function AllowancePage() {
         navigate("")
     })
     .catch((error) => {
-        console.log(error)
+        console.log(error.response.data)
         alert("Invalid input.");
     })
     }; 
 
     return (
-        <div>
-            <h1>Allowances</h1>
+        <div className="bg-gray-700">
+            <SidenavNew />
+            <h1 className="content-start text-5xl text-center font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-lime-400 to-green-500">ALLOWANCES</h1><br />
             <Allowance
                 handleEmployee_id={handleEmployee_id}
                 handleRice={handleRice}

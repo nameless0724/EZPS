@@ -36,7 +36,7 @@ function LoginPage() {
     }, config)
     .then((response) => {
         console.log(response)
-        navigate("/payslip");
+        navigate("");
     })
     .catch((error) => {
         console.log(error)
@@ -45,8 +45,8 @@ function LoginPage() {
     };
 
     return (
-        <div>
-            <h1>Log In</h1>
+        <div className="bg-gray-700">
+            <h1 className="content-start text-5xl text-center font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-lime-400 to-green-500">LOG IN</h1> 
             <LogIn 
                 handleEmployee_id={handleEmployee_id}
                 handleUser_name={handleUser_name}

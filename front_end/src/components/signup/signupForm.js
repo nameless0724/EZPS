@@ -1,22 +1,30 @@
 function SignUp(props) {
     return(
       <div>
-        <form onSubmit={props.handleSubmit}>
-          <div className="input_container">
-            <input type="employee_id" className="input" value={props.employee_id} placeholder="Employee ID" onChange={props.handleEmployee_id} /><br/>
-            <label htmlFor="employee_id" className="label">Employee ID</label><br/>
+        <form  className="w-full max-w-sm" onSubmit={props.handleSubmit}>
+          <div className="md:w-1/3">
+            <label className="block text-white font-bold text-xl md:text-right mb-1 md:mb-0 pr-4" htmlFor="employee_id">Employee ID</label>
           </div>
+          <div className="md:w-1/3">
+            <input className="bg-gray-200 appearance-none border-2 border-gray-700 rounded w-full py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-lime-400" type="employee_id" value={props.employee_id} placeholder="Employee ID" onChange={props.handleEmployee_id} /><br/>
+          </div><br />
 
-          <div className="input_container">
-          <input type="user_name" className="input" value={props.user_name} placeholder="User Name" onChange={props.handleEmployee_id} /><br/>
-            <label htmlFor="user_name" className="label">User Name</label><br/>
+          <div className="md:w-1/3">
+            <label className="block text-white font-bold text-xl md:text-right mb-1 md:mb-0 pr-4" htmlFor="user_name">User Name</label>
           </div>
+          <div className="md:w-1/3">
+            <input className="bg-gray-200 appearance-none border-2 border-gray-700 rounded w-full py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-lime-400" type="user_name" value={props.user_name} placeholder="User Name" onChange={props.handleUser_name} /><br/>
+          </div><br />
+          
+          <div className="md:w-1/3">
+          <label className="block text-white font-bold text-xl md:text-right mb-1 md:mb-0 pr-4" htmlFor="password">Password</label>
+          </div>
+          <div className="md:w-1/3">
+          <input className="bg-gray-200 appearance-none border-2 border-gray-700 rounded w-full py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-lime-400" type="password" value={props.password} placeholder="Password" onChange={props.handlePassword} /><br/>
+          </div><br />
 
-          <div className="input_container">
-            <input type="password" className="input" value={props.password} placeholder="Password" onChange={props.handlePassword} /><br/>
-            <label htmlFor="password" className="label">Password</label><br/>
-          </div>
-          <button className="submit_btn">Submit</button>
+          <button className="bg-lime-400 hover:bg-green-500 text-black font-bold py-2 px-4 rounded-full">Submit</button>
+
         </form>
       </div>
     )

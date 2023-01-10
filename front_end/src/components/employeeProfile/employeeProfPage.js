@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import EmployeeProfile from './employeeProfForm';
+import SidenavNew from '../sidenav/sidenavnew';
 
 function EmployeeProfilePage() {
     let navigate = useNavigate();
@@ -60,11 +61,11 @@ function EmployeeProfilePage() {
         };      
  
     axios.post("http://localhost:8000/employee", {
-        empoyee_id: employee_id,
+        employee_id: employee_id,
         last_name: last_name,
         first_name: first_name,
         middle_name: middle_name,
-        date_hired: date_hired,
+        date_hired: date_hired, 
         sss_num: sss_num,
         pagibig_num: pagibig_num,
         philhealth_num: philhealth_num,
@@ -75,14 +76,15 @@ function EmployeeProfilePage() {
         navigate("")
     })
     .catch((error) => {
-        console.log(error)
+        console.log(error.response.data)
         alert("Invalid input.");
     })
     }; 
 
     return (
-        <div>
-            <h1>Employee Profile</h1>
+        <div className="bg-gray-700">
+            <SidenavNew />
+            <h1 className="content-start text-5xl text-center font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-lime-400 to-green-500">EMPLOYEE'S PROFILE</h1><br />
             <EmployeeProfile
                 handleEmployee_id={handleEmployee_id}
                 handleLast_name={handleLast_name}

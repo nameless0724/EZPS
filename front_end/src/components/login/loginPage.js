@@ -35,7 +35,10 @@ function LoginPage() {
         password: password
     }, config)
     .then((response) => {
-        console.log(response)
+        console.log(response.data?.user)
+        const user = response.data?.user
+        const parsedUser = JSON.stringify(user)
+        localStorage.setItem("user", parsedUser)
         navigate("");
     })
     .catch((error) => {

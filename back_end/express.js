@@ -90,8 +90,9 @@ app.post('/login', async (req, res) => {
        
         //generate and return the JWT
         const token = generateJwt(user.rows[0])
+       
         res.json({
-            token
+           user: user.rows[0]
         })
     } catch (error) {
         console.error(error.message);
@@ -388,3 +389,5 @@ app.get('/allowance', async (req, res) => {
         })
     }
 })
+
+//for display all informations

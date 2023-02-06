@@ -3,6 +3,7 @@ import AllowancePage from './components/allowance/allowancePage';
 import AttendanceCheckingPage from './components/attendanceCheck/attendanceCheckPage';
 import DeductionPage from './components/deduction/deductionPage';
 import EmployeeProfilePage from './components/employeeProfile/employeeProfPage';
+import EmployeeProfTable from './components/employeeProfile/employeeProfTable';
 import EmployeeSalaryPage from './components/employeeSalary/employeeSalaryPage';
 import HomePage from './components/homepage/homepage';
 import LoginPage from './components/login/loginPage';
@@ -26,6 +27,7 @@ function App() {
         <Route path="/deduction" element={<DeductionPage />} />
         <Route path="/allowance" element={<AllowancePage />} />
         <Route path="/new" element={<SidenavNew />} />
+        <Route path="/employeetable" element={<EmployeeProfTable />} />
       </Routes>
     </BrowserRouter> 
   ) 

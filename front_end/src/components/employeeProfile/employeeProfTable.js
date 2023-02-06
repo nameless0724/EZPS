@@ -1,7 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { nanoid } from 'nanoid';
 import axios from 'axios';
-import EmployeeProfEdit from './employeeProfEdit';
+import EditableRow from './employeeProfEdit';
+import ReadOnlyRow from './employeeProfRead';
 
 function EmployeeProfTable() {
     //for edit and add data
@@ -136,7 +137,7 @@ function EmployeeProfTable() {
     };
 
     const handleCancelClick = () => {
-        setEditContactID(null);
+        setEditEntryId(null);
     };
 
     const handleDeleteClick = (entry) => {
@@ -170,7 +171,7 @@ function EmployeeProfTable() {
                         {entry.map((entry) => (
                             <Fragment>
                                 {editEntryId === entry.id ? (
-                                    <EmployeeProfEdit 
+                                    <EditableRow
                                         editFormData={editFormData}
                                         handleEditFormChange={handleEditFormChange}
                                         handleCancelClick={handleCancelClick}

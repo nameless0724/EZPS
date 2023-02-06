@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EmployeeProfEdit = ({
+const EditableRow = ({
     editFormData,
     handleEditFormChange,
     handleCancelClick,
@@ -97,7 +97,11 @@ const EmployeeProfEdit = ({
                     onChange={handleEditFormChange}
                 />
             </td>
+            <td>
+                <button type="submit">Save</button>
+                <button type="button" onClick={handleCancelClick}>Cancel</button>
+            </td>
         </tr>
     )
 }
-export default EmployeeProfEdit
+export default EditableRow

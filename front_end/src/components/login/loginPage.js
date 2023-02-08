@@ -30,7 +30,6 @@ function LoginPage() {
         };     
   
     axios.post("http://localhost:8000/login", {
-        employee_id: employee_id,
         user_name: user_name,
         password: password
     }, config)
@@ -51,11 +50,9 @@ function LoginPage() {
         <div className="bg-gray-700">
             <h1 className="content-start text-5xl text-center font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-lime-400 to-green-500">LOG IN</h1> 
             <LogIn 
-                handleEmployee_id={handleEmployee_id}
                 handleUser_name={handleUser_name}
                 handlePassword={handlePassword}
                 handleSubmit={handleSubmit}
-                employee_id={employee_id}
                 user_name={user_name}
                 password={password}
             />

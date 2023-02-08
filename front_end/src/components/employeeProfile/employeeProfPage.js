@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import EmployeeProfile from './employeeProfForm';
-import SidenavNew from '../sidenav/sidenavnew';
 
 function EmployeeProfilePage() {
     let navigate = useNavigate();
@@ -60,8 +59,6 @@ function EmployeeProfilePage() {
             }
         };      
     
-    
-    
     axios.post("http://localhost:8000/employee", {
         employee_id: employee_id,
         last_name: last_name,
@@ -86,7 +83,6 @@ function EmployeeProfilePage() {
     return (
         <div className="bg-gray-700 min-h-screen flex">
             <nav className="w-56 flex-none">
-                <SidenavNew />
             </nav>
             <main className="flex-1 min-w-0 overflow-auto">
                 <h1 className="content-start text-5xl text-center font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-lime-400 to-green-500">EMPLOYEE'S PROFILE</h1><br />

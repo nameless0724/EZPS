@@ -30,13 +30,14 @@ app.post('/signup', async (req, res) => {
     try {
         //take the email and password from the req.body
         const {
-            employee_id,
-            user_name,
+            last_name,
+            first_name,
+            middle_name,
             password
         } = req.body
 
         //check if the user is already existing 
-        const user = await pool.query(`SELECT * FROM public.entry WHERE employee_id = $1`, [employee_id]) //$ for placement for array
+        const user = await pool.query(`SELECT * FROM public.payslip_detail WHERE last_name = $1`, [last_name]) //$ for placement for array
 
         if (user.rows.length > 0) {
             res.status(401).send("User already exists!")
@@ -50,8 +51,8 @@ app.post('/signup', async (req, res) => {
         //add the new user into the database
         //generate the uuid using the uuidv4() function
         const newUser = await pool.query(`
-        INSERT INTO public.entry (id, employee_id, user_name, password) VALUES ($1, $2, $3, $4) RETURNING * 
-        `, [uuidv4(), employee_id, user_name, bcryptPassword]) //table database
+        INSERT INTO public.payslip_detail (id, last_name, first_name, middle_name, password) VALUES ($1, $2, $3, $4, $5) RETURNING * 
+        `, [uuidv4(), last_name, first_name, middle_name, bcryptPassword]) //table database
 
         //generate and return the JWT token
         const token = generateJwt(newUser.rows[0])
@@ -69,13 +70,14 @@ app.post('/login', async (req, res) => {
     try{
         //take the email and password from the req.body
         const {
-            employee_id,
-            user_name,
+            last_name,
+            first_name,
+            middle_name,
             password
         } = req.body;
 
         //check if the user is not existing
-        const user = await pool.query(`SELECT * FROM public.entry WHERE employee_id = $1`, [employee_id])
+        const user = await pool.query(`SELECT * FROM public.payslip_detail WHERE last_name = $1`, [last_name])
         
         console.log(user.rows.length)
         if (user.rows.length == 0) {
@@ -114,6 +116,49 @@ app.get('/verify', auth, async (req, res) => {
     }
 })
 
+app.post('/payslip', async (req, res) => {
+    try {
+        const {
+            employee_id,
+            last_name,
+            first_name,
+            middle_name,
+            salary,
+            allowance,
+            deduction,
+            absent,
+            net_pay
+        } = req.body
+        
+        pool.query(`
+        INSERT INTO public.payroll_detail (id, employee_id, last_name, first_name, middle_name, salary, allowance, deduction, absent, net_pay) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *
+        `, [uuidv4(), employee_id, last_name, first_name, middle_name, salary, allowance, deduction, absent, net_pay])
+
+        const message = "Input done!"
+
+        res.json({
+            message
+        })
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).send(error.message)
+    }
+})
+
+app.get('/paysliplist', async (req, res) => {
+    try {
+        const payroll = await pool.query(`SELECT * FROM public.payslip_detail ORDER BY id ASC`);
+        res.json(payroll)
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send({
+            msg: "Unauthenticated"
+        })
+    }
+})
+
+/*
 //for payroll_period
 app.post('/payrollperiod', async (req, res) => {
     try {
@@ -388,6 +433,4 @@ app.get('/allowance', async (req, res) => {
             msg: "Unauthenticated"
         })
     }
-})
-
-//for display all informations
+})*/

@@ -35,7 +35,7 @@ app.post('/login', async (req, res) => {
         } = req.body
 
         //check if the user is already existing 
-        const user = await pool.query(`SELECT * FROM public.user_info WHERE last_name = $1`, [user_id]) //$ for placement for array
+        const user = await pool.query(`SELECT * FROM public.user_info WHERE user_id = $1`, [user_id]) //$ for placement for array
 
         if (user.rows.length > 0) {
             res.status(401).send("User already exists!")

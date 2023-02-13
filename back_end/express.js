@@ -29,31 +29,25 @@ pool.connect((err) => {
 //signup
 app.post('/signup', async (req, res) => {
     try {
-        //take the email and password from the req.body
         const {
             username,
             password
         } = req.body
 
-        //check if the user is already existing 
-        const user = await pool.query(`SELECT * FROM public.user_info WHERE username = $1`, [username]) //$ for placement for array
+        const user = await pool.query(`SELECT * FROM public.user_info WHERE username = $1`, [username])
 
         if (user.rows.length > 0) {
             res.status(401).send("User already exists!")
         }
 
-        //setup bcrypt for password hashing
         const saltRound = 10;
         const salt = await bcrypt.genSalt(saltRound);
         const bcryptPassword = await bcrypt.hash(password, salt);
 
-        //add the new user into the database
-        //generate the uuid using the uuidv4() function
         const newUser = await pool.query(`
-        INSERT INTO public.user_info (id, username, password) VALUES ($1, $2, $3) RETURNING * 
-        `, [uuidv4(), username, bcryptPassword]) //table database
+        INSERT INTO public.user_info (id, username, password) VALUES ($1, $2, $3) RETURNING *
+        `, [uuidv4(), username, bcryptPassword])
 
-        //generate and return the JWT token
         const token = generateJwt(newUser.rows[0])
 
         res.json({
@@ -64,20 +58,20 @@ app.post('/signup', async (req, res) => {
         res.status(500).send(error.message)
     }
 })
-
+    
 //login
 app.post('/login', async (req, res) => {
     try {
         const {
             username,
             password
-        } = req.body
+        } = req.body;
 
-        const user = await pool.query (`SELECT * FROM public.user_info WHERE username = $1`, [username])
+        const user = await pool.query(`SELECT * FROM public.user_info WHERE username = $1`, [username]);
 
         console.log(user.rows.length)
         if (user.rows.length == 0) {
-            res.status(401).send("User does not exists!")
+            res.status(401).send("User does not exists")
         }
 
         const validPassword = await bcrypt.compare(password, user.rows[0].password)
@@ -86,17 +80,15 @@ app.post('/login', async (req, res) => {
         }
 
         const token = generateJwt(user.rows[0])
-
         res.json({
-            user: user.rows[0]
+            token
         })
     } catch (error) {
         console.error(error.message);
         res.status(500).send({
-         msg: "Unauthenticated"
+            msg: "Unauthenticated"
         })
     }
-    
 })
 
 //provide the auth middleware
@@ -152,11 +144,11 @@ app.get('/payrolllist', async (req, res) => {
 })
 
 //payslip detail
-app.get('/payslip/:user_id', async (req, res) => {
+app.get('/payroll/:user_id', async (req, res) => {
     try {
-        const payslipId = req.params.user_id
+        const payrollId = req.params.user_id
 
-        const params = [payslipId]
+        const params = [payrollId]
         const statement = "SELECT * FROM public.payroll_info WHERE user_id = $1 LIMIT 1"
 
         const result = await pool.query(statement, params)

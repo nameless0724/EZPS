@@ -13,8 +13,8 @@ function PayrollForm(props) {
                 className="bg-gray-200 appearance-none border-2 border-gray-700 rounded w-full py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-lime-400"
                 type="user_id"
                 value={props.user_id}
-                placeholder="User Name"
-                onChange={props.handlePayroll} />
+                placeholder="User ID"
+                onChange={props.handleUser_id} />
             </div>
 
             <div className="mb-6 md:w-1/3">
@@ -30,7 +30,7 @@ function PayrollForm(props) {
                 type="user_id"
                 value={props.last_name}
                 placeholder="Last Name"
-                onChange={props.handlePayroll} />
+                onChange={props.handleLast_name} />
             </div>
 
             <div className="mb-6 md:w-1/3">
@@ -46,7 +46,7 @@ function PayrollForm(props) {
                 type="user_id"
                 value={props.first_name}
                 placeholder="First Name"
-                onChange={props.handlePayroll} />
+                onChange={props.handleFirst_name} />
             </div>
 
             <div className="mb-6 md:w-1/3">
@@ -62,7 +62,7 @@ function PayrollForm(props) {
                 type="net_pay"
                 value={props.net_pay}
                 placeholder="Net Pay"
-                onChange={props.handlePayroll} />
+                onChange={props.handleNet_pay} />
             </div>
 
             <div className="mb-6 md:w-1/3">
@@ -78,7 +78,7 @@ function PayrollForm(props) {
                 type="allowance"
                 value={props.allowance}
                 placeholder="Allowance"
-                onChange={props.handlePayroll} />
+                onChange={props.handleAllowance} />
             </div>
 
             <div className="mb-6 md:w-1/3">
@@ -94,7 +94,7 @@ function PayrollForm(props) {
                 type="deduction"
                 value={props.deduction}
                 placeholder="Deduction"
-                onChange={props.handlePayroll} />
+                onChange={props.handleDeduction} />
             </div>
 
             <div className="mb-6 md:w-1/3">
@@ -110,7 +110,7 @@ function PayrollForm(props) {
                 type="gross_net"
                 value={props.gross_net}
                 placeholder="Gross Net"
-                onChange={props.handlePayroll} />
+                onChange={props.handleGross_net} />
             </div>
 
             <div className="mb-6 md:w-1/3">
@@ -126,7 +126,7 @@ function PayrollForm(props) {
                 type="date_start"
                 value={props.date_start}
                 placeholder="Date Start"
-                onChange={props.handlePayroll} />
+                onChange={props.handleDate_start} />
             </div>
 
             <div className="mb-6 md:w-1/3">
@@ -142,11 +142,11 @@ function PayrollForm(props) {
                 type="date_end"
                 value={props.date_end}
                 placeholder="Date End"
-                onChange={props.handlePayroll} />
+                onChange={props.handleDate_end} />
             </div>
 
             <div className="flex flex-col justify-center items-center md:auto">
-                <button className="bg-lime-400 hover:bg-green-500 text-black font-bold py-2 px-4 rounded-full"><a href="/">SUBMIT</a></button>
+                <button className="bg-lime-400 hover:bg-green-500 text-black font-bold py-2 px-4 rounded-full"><a href="/payrolllist">SUBMIT</a></button>
             </div>
         </form>
     )

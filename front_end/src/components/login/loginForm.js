@@ -14,7 +14,7 @@ function LoginForm(props) {
                 type="username"
                 value={props.username}
                 placeholder="User Name"
-                onChange={props.handleLogin} />
+                onChange={props.handleUsername} />
             </div>
 
             <div className="mb-6 md:w-1/3">
@@ -30,11 +30,11 @@ function LoginForm(props) {
                 type="username"
                 value={props.password}
                 placeholder="Password"
-                onChange={props.handleLogin} />
+                onChange={props.handlePassword} />
             </div>
             
             <div className="flex flex-col justify-center items-center md:auto">
-                <button className="bg-lime-400 hover:bg-green-500 text-black font-bold py-2 px-4 rounded-full"><a href="/login">LOG IN</a></button>
+                <button className="bg-lime-400 hover:bg-green-500 text-black font-bold py-2 px-4 rounded-full"><a href="/payrolllist">LOG IN</a></button>
             </div>
             <a className="text-xl text-center text-white underline underline-offset-8 hover:text-green-500" href="/signup">Haven't registered yet? Click here.</a>
         </form>

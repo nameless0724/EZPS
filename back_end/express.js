@@ -26,7 +26,8 @@ pool.connect((err) => {
     }
 })
 
-app.post('/login', async (req, res) => {
+//signup
+app.post('/signup', async (req, res) => {
     try {
         //take the email and password from the req.body
         const {
@@ -64,178 +65,124 @@ app.post('/login', async (req, res) => {
     }
 })
 
+//login
+app.post('/login', async (req, res) => {
+    try {
+        const {
+            username,
+            password
+        } = req.body
+
+        const user = await pool.query (`SELECT * FROM public.user_info WHERE username = $1`, [username])
+
+        console.log(user.rows.length)
+        if (user.rows.length == 0) {
+            res.status(401).send("User does not exists!")
+        }
+
+        const validPassword = await bcrypt.compare(password, user.rows[0].password)
+        if (!validPassword) {
+            return res.status(401).json("Password or Username is incorrect!")
+        }
+
+        const token = generateJwt(user.rows[0])
+
+        res.json({
+            user: user.rows[0]
+        })
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send({
+         msg: "Unauthenticated"
+        })
+    }
+    
+})
+
 //provide the auth middleware
 app.get('/verify', auth, async (req, res) => {
     try{
         res.json(req.user)
     } catch (error) {
-        console.error(err.message);
+        console.error(error.message);
         res.status(500).send({
             msg: "Unautheticated"
         });
     }
 })
 
-app.get('/payslipList', auth, async (req, res) => {
-    try{
-        const userId = req.user.id
+//payslip info
+app.post('/payroll', async (req, res) => {
+    try {
+        const {
+            user_id,
+            last_name,
+            first_name,
+            net_pay,
+            allowance,
+            deduction,
+            gross_net,
+            date_start,
+            date_end
+        } = req.body
 
-        const params = [userId]
-        const statement = "SELECT * FROM public.payslip_info WHERE user_id = $1"
+        pool.query(`
+        INSERT INTO public.payroll_info (id, user_id, last_name, first_name, net_pay, allowance, deduction, gross_net, date_start, date_end) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        RETURNING *`, [uuidv4(), user_id, last_name, first_name, net_pay, allowance, deduction, gross_net, date_start, date_end])
 
-        const result = await pool.query(statement, params)
-        res.json(result)
+        const message = "Payroll info successfully added!"
+        res.json({message})
     } catch (error) {
-        console.error(err.message);
-        res.status(500).send({
-            msg: "Unautheticated"
-        });
+        console.log(error.message)
+        res.status(500).send(error.message)
     }
 })
 
-
-// -payslip detail
-    // get given id
-app.get('/payslip/:id', auth, async (req, res) => {
-    try{
-        const payslipId = req.params.id
-
-        const params = [payslipId]
-        const statement = "SELECT * FROM public.payslip_info WHERE id = $1 LIMIT 1"
-
-        const result = await pool.query(statement, params)
-        res.json(result)
+//payroll list
+app.get('/payrolllist', async (req, res) => {
+    try {
+        const payroll = await pool.query(`SELECT * FROM public.payroll_info ORDER BY id ASC`);
+        res.json(payroll)
     } catch (error) {
-        console.error(err.message);
+        console.error(error.message);
         res.status(500).send({
-            msg: "Unautheticated"
-        });
-    }
-})
-
-
-// - delete user (admin)
-    // delete given id
-
-app.delete('/user/:id', auth, async (req, res) => {
-    try{
-        const payslipId = req.params.id
-
-        const params = [payslipId]
-        const statement = "DELETE FROM public.payslip_info WHERE id = $1"
-
-        const result = await pool.query(statement, params)
-        res.json(result)
-    } catch (error) {
-        console.error(err.message);
-        res.status(500).send({
-            msg: "Unautheticated"
-        });
-    }
-})
-
-// -attendance add (admin)
-    // add daily hour per user
-
-app.post('/attendance', auth, async (req, res) => {
-    try{
-
-        let attendance = req.body;
-        // attedance should look like this
-        /* 
-        [
-            {
-                "userId": "1",
-                "hours": [8, 8, 8, 8, 8] // M T W TH F
-            },
-            {
-                "userId": "2",
-                "hours": [5, 8, 8, 8, 8] // M T W TH F
-            }
-        ]
-        */ 
-        const attendanceList = req.body.map((attedance) => {
-            attedance.id = uuidv4()
-            return attedance
+            msg: "Unauthenticated"
         })
-
-        attendanceList.array.forEach(element => {
-            const { id, user_id, date, hours } = element
-            const params = [id, user_id, date, hours]
-            const statement = "INSERT INTO public.attendance_info (id, user_id, date, hours) VALUES ($1, $2, $3, $4)"
-
-            pool.query(statement, params)
-        });
-        
-
-        const result = { "message": "attendance successfully saved!" }
-        res.json(result)
-        
-    } catch (error) {
-        console.error(err.message);
-        res.status(500).send({
-            msg: "Unautheticated"
-        });
     }
 })
 
+//payslip detail
+app.get('/payslip/:user_id', async (req, res) => {
+    try {
+        const payslipId = req.params.user_id
 
+        const params = [payslipId]
+        const statement = "SELECT * FROM public.payroll_info WHERE user_id = $1 LIMIT 1"
 
-// -add user
-    // compute salary based on attendance and user info
-
-app.post('/user', auth, async (req, res) => {
-    try{
-
-        const { id, username, password, isAdmin } = req.body
-        /*
-        {
-            "id": "autogenerate",
-            "username": "asdf",
-            "password": "asdf"
-        } 
-            */
-
-        const params = [id, username, password, isAdmin]
-        const statement = "INSERT INTO user_info (id, username, password, is_admin) VALUES ($1, $2, $3. $4)"
-        pool.query(statement, params)
-
-        const result = { "message": "user successfully saved!" }
+        const result = await pool.query(statement, params)
         res.json(result)
     } catch (error) {
-        console.error(err.message);
+        console.error(error.message);
         res.status(500).send({
             msg: "Unautheticated"
-        });
+        })
     }
 })
 
-// -add payroll info
-    // compute salary based on attendance and user info
-app.post('/payrollInfo', auth, async (req, res) => {
-    try{
-        const payrollInfo = req.body
-    
-        // - id (PK)
-        // - user_id
-        // - first_name
-        // - last_name
-        // - net_pay
-        // - allowance
-        // - deduction
+//delete user
+app.delete('/payrolldel/:user_id', async (req, res) => {
+    try {
+        const payslipId = req.params.user_id
+        const params = [payslipId]
+        const statement = "DELETE FROM public.payslip_info WHERE user_id = $1"
 
-        const { user_id, last_name, first_name, net_pay, allowance, deduction } = req.body
-        const id = uuidv4()
-        const params = [id, user_id, last_name, first_name, net_pay, allowance, deduction]
-        const statement = "INSERT INTO user_info (id, user_id, last_name, first_name, net_pay, allowance, deduction) VALUES ($1, $2, $3, $4, $5, $6, $7)"
-        pool.query(statement, params)
-
-        const result = { "message": "payroll info successfully saved!" }
+        const result = await pool.query(statement, params)
         res.json(result)
     } catch (error) {
-        console.error(err.message);
+        console.error(error.message);
         res.status(500).send({
             msg: "Unautheticated"
-        });
+        })
     }
 })
+

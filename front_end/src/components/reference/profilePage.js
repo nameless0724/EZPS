@@ -31,7 +31,7 @@ function ProfilePage() {
 
     const handleMiddle_name = (event) => {
         setMiddle_name(event.target.value);
-    }
+    } 
 
     const handleEmail = (event) => {
         setEmail(event.target.value);
